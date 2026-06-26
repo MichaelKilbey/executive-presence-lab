@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7 Authority Leaks — The Executive Presence Lab</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0D0D0D;
+    color: #E8E4DC;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* COVER */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 80px 40px 60px;
+    border-bottom: 1px solid #2A2A2A;
+    position: relative;
+  }
+
+  .cover-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .brand-mark {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #666;
+  }
+
+  .doc-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #444;
+    border: 1px solid #2A2A2A;
+    padding: 6px 14px;
+  }
+
+  .cover-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 0 80px;
+  }
+
+  .cover-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #B8A98A;
+    margin-bottom: 32px;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 72px;
+    line-height: 1.0;
+    color: #F0EAE0;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: #B8A98A;
+  }
+
+  .cover-sub {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    color: #666;
+    letter-spacing: 0.05em;
+    margin-top: 32px;
+    max-width: 420px;
+    line-height: 1.8;
+  }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: #B8A98A;
+    margin: 40px 0;
+  }
+
+  .cover-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cover-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 18px;
+    color: #B8A98A;
+    max-width: 380px;
+    line-height: 1.5;
+  }
+
+  .cover-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 120px;
+    line-height: 1;
+    color: #1A1A1A;
+    letter-spacing: -0.04em;
+  }
+
+  /* INTRO SECTION */
+  .intro-section {
+    padding: 80px 40px;
+    border-bottom: 1px solid #1E1E1E;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #444;
+    margin-bottom: 32px;
+  }
+
+  .intro-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 1.65;
+    color: #C8C0B0;
+  }
+
+  .intro-text strong {
+    font-weight: 500;
+    color: #E8E4DC;
+  }
+
+  .intro-body {
+    margin-top: 40px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    color: #999;
+    line-height: 1.95;
+    max-width: 560px;
+  }
+
+  /* LEAK ENTRIES */
+  .leaks-section {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .leak-entry {
+    padding: 64px 0;
+    border-bottom: 1px solid #1A1A1A;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0 40px;
+  }
+
+  .leak-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 56px;
+    line-height: 1;
+    color: #222;
+    padding-top: 6px;
+  }
+
+  .leak-content {}
+
+  .leak-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 1.2;
+    color: #F0EAE0;
+    margin-bottom: 8px;
+  }
+
+  .leak-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #B8A98A;
+    margin-bottom: 24px;
+  }
+
+  .leak-body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    color: #999;
+    line-height: 1.95;
+    margin-bottom: 24px;
+  }
+
+  .leak-signal {
+    border-left: 2px solid #2A2A2A;
+    padding: 16px 20px;
+    margin: 24px 0;
+    background: #111;
+  }
+
+  .leak-signal-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #B8A98A;
+    margin-bottom: 8px;
+  }
+
+  .leak-signal-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 19px;
+    color: #C8C0B0;
+    line-height: 1.65;
+  }
+
+  .leak-cost {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    color: #777;
+    line-height: 1.85;
+    padding-top: 16px;
+    border-top: 1px solid #222;
+  }
+
+  .leak-cost span {
+    color: #B8A98A;
+    font-weight: 400;
+  }
+
+  /* CLOSING CTA */
+  .cta-section {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 80px 40px 100px;
+  }
+
+  .cta-inner {
+    border: 1px solid #2A2A2A;
+    padding: 60px;
+    text-align: center;
+    position: relative;
+  }
+
+  .cta-inner::before {
+    content: '';
+    position: absolute;
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    border: 1px solid #1E1E1E;
+    pointer-events: none;
+  }
+
+  .cta-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #444;
+    margin-bottom: 32px;
+  }
+
+  .cta-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 42px;
+    line-height: 1.2;
+    color: #F0EAE0;
+    margin-bottom: 24px;
+  }
+
+  .cta-heading em {
+    font-style: italic;
+    color: #B8A98A;
+  }
+
+  .cta-body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.9;
+    max-width: 440px;
+    margin: 0 auto 40px;
+  }
+
+  .cta-price-block {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .cta-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 48px;
+    color: #F0EAE0;
+  }
+
+  .cta-price-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    color: #555;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background: #B8A98A;
+    color: #0D0D0D;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 16px 48px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .cta-url {
+    margin-top: 24px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    color: #333;
+    letter-spacing: 0.1em;
+  }
+
+  .footer {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 40px;
+    border-top: 1px solid #1A1A1A;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-brand {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #333;
+  }
+
+  .footer-copy {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    color: #2A2A2A;
+  }
+
+  @media (max-width: 600px) {
+    .cover { padding: 36px 22px 32px; min-height: auto; }
+    .intro-section { padding: 44px 22px; }
+    .leaks-section { padding: 0 22px; }
+    .cta-section { padding: 44px 22px 60px; }
+    .footer { padding: 22px 22px; }
+
+    h1 { font-size: 34px; line-height: 1.1; }
+    .cover-eyebrow { font-size: 10px; letter-spacing: 0.2em; }
+    .cover-sub { font-size: 14px; margin-top: 20px; line-height: 1.85; }
+    .cover-tagline { font-size: 15px; max-width: 100%; }
+    .cover-number { font-size: 56px; }
+    .cover-bottom { flex-direction: column; gap: 20px; align-items: flex-start; }
+    .cover-rule { margin: 28px 0; }
+
+    .intro-text { font-size: 19px; line-height: 1.65; }
+    .intro-body { font-size: 14px; line-height: 1.9; }
+
+    .leak-entry { grid-template-columns: 1fr; gap: 0; padding: 36px 0; }
+    .leak-number { font-size: 28px; padding-top: 0; margin-bottom: 12px; }
+    .leak-title { font-size: 22px; margin-bottom: 6px; }
+    .leak-subtitle { font-size: 10px; margin-bottom: 16px; }
+    .leak-body { font-size: 14px; line-height: 1.9; margin-bottom: 16px; }
+    .leak-signal { padding: 14px 16px; margin: 16px 0; }
+    .leak-signal-label { font-size: 9px; }
+    .leak-signal-text { font-size: 17px; line-height: 1.6; }
+    .leak-cost { font-size: 13px; line-height: 1.8; padding-top: 14px; }
+
+    .cta-inner { padding: 36px 20px; }
+    .cta-inner::before { display: none; }
+    .cta-heading { font-size: 28px; line-height: 1.2; }
+    .cta-body { font-size: 13px; line-height: 1.9; }
+    .cta-price { font-size: 40px; }
+    .cta-price-label { font-size: 11px; }
+    .cta-button { padding: 15px 32px; font-size: 11px; display: block; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="brand-mark">The Executive Presence Lab</div>
+    <div class="doc-label">Confidential Dossier</div>
+  </div>
+
+  <div class="cover-main">
+    <div class="cover-eyebrow">Authority Intelligence / Private Issue</div>
+    <h1>7 Authority<br><em>Leaks</em> Costing<br>Competent Men<br>the Room</h1>
+    <div class="cover-rule"></div>
+    <div class="cover-sub">
+      These are not personality flaws. They are signal failures: 
+      specific, correctable behaviours that quietly drain the authority 
+      you have already earned.
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-tagline">"You don't have a confidence problem.<br>You have a signal problem."</div>
+    <div class="cover-number">7</div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro-section">
+  <div class="section-eyebrow">Before you begin</div>
+  <div class="intro-text">
+    The men who lose rooms are rarely the least capable in them. 
+    They are the ones whose <strong>signals contradict their substance.</strong>
+  </div>
+  <div class="intro-body">
+    What follows is a precise inventory of the seven most common authority leaks I observe in professional men. Compiled from years of studying presence, frame, and the micro-signals that determine how power is read in a room before a single word is spoken.<br><br>
+    Read each one slowly. Notice which ones produce a quiet recognition. That recognition is data.<br><br>
+    Most men will identify two or three with certainty. The more dangerous leaks are the ones you cannot see in yourself, and that is precisely the nature of a signal failure.
+  </div>
+</div>
+
+<!-- LEAKS -->
+<div class="leaks-section">
+
+  <div class="leak-entry">
+    <div class="leak-number">01</div>
+    <div class="leak-content">
+      <div class="leak-title">The Filled Silence</div>
+      <div class="leak-subtitle">Vocal / Frame Control</div>
+      <div class="leak-body">
+        The inability to inhabit a quiet room is one of the most visible authority leaks in professional settings. When silence descends, after a question, after a challenge, after bad news, most men rush to fill it. They qualify, they soften, they over-explain. The silence reveals their discomfort, and that discomfort reads as a crack in authority.
+      </div>
+      <div class="leak-signal">
+        <div class="leak-signal-label">The signal others receive</div>
+        <div class="leak-signal-text">"He needs the room's approval to feel safe. He cannot hold tension."</div>
+      </div>
+      <div class="leak-cost">
+        <span>What it costs you:</span> Negotiating leverage. The ability to hold a position under pressure. The perception that your words have weight when you do choose to speak.
+      </div>
+    </div>
+  </div>
+
+  <div class="leak-entry">
+    <div class="leak-number">02</div>
+    <div class="leak-content">
+      <div class="leak-title">Upward Inflection on Statements</div>
+      <div class="leak-subtitle">Vocal / Certainty Signal</div>
+      <div class="leak-body">
+        When declarative statements end on a rising tone, as though every sentence is a question seeking permission, they undermine the content entirely. It does not matter how correct your position is. Upward inflection turns assertions into appeals, and appeals into requests for validation from whoever holds the higher frame in the room.
+      </div>
+      <div class="leak-signal">
+        <div class="leak-signal-label">The signal others receive</div>
+        <div class="leak-signal-text">"He is telling me, but asking me at the same time. He is not certain of his own ground."</div>
+      </div>
+      <div class="leak-cost">
+        <span>What it costs you:</span> Credibility under scrutiny. The ability to land a point cleanly. Your arguments are subconsciously processed as hypotheses, not positions.
+      </div>
+    </div>
+  </div>
+
+  <div class="leak-entry">
+    <div class="leak-number">03</div>
+    <div class="leak-content">
+      <div class="leak-title">Exit Intention in the Body</div>
+      <div class="leak-subtitle">Physical / Spatial Authority</div>
+      <div class="leak-body">
+        Lower body restlessness, weight shifting, feet angled toward the door, legs crossed away from the room's centre of gravity. Each of these communicates a desire to leave before the mind has consciously formed the thought. The body is always speaking. When it signals exit, the room reads it as disengagement, discomfort, or low investment. None of these project authority.
+      </div>
+      <div class="leak-signal">
+        <div class="leak-signal-label">The signal others receive</div>
+        <div class="leak-signal-text">"He is already somewhere else. He does not fully own this space."</div>
+      </div>
+      <div class="leak-cost">
+        <span>What it costs you:</span> Perceived commitment. The gravitational pull of a man who occupies his space fully. That is one of the most immediate and subconscious authority cues available to you.
+      </div>
+    </div>
+  </div>
+
+  <div class="leak-entry">
+    <div class="leak-number">04</div>
+    <div class="leak-content">
+      <div class="leak-title">Visible Costume vs. Visual Armour</div>
+      <div class="leak-subtitle">Visual / Signal Architecture</div>
+      <div class="leak-body">
+        Clothing worn without understanding functions as a costume. Clothing worn with precision, cut, cloth and proportion calibrated to the frame and the context,functions as armour. The difference is immediately legible to anyone reading the room. A suit that does not fit correctly, or that has not been chosen with intent, announces that the wearer has not yet taken full responsibility for the visual signal he is producing.
+      </div>
+      <div class="leak-signal">
+        <div class="leak-signal-label">The signal others receive</div>
+        <div class="leak-signal-text">"He has dressed for the occasion rather than for the position. He is approximating authority, not inhabiting it."</div>
+      </div>
+      <div class="leak-cost">
+        <span>What it costs you:</span> The first thirty seconds of any room. Credibility before you have spoken. The subconscious authority premium that precise visual presence commands.
+      </div>
+    </div>
+  </div>
+
+  <div class="leak-entry">
+    <div class="leak-number">05</div>
+    <div class="leak-content">
+      <div class="leak-title">Over-Explanation After a Decision</div>
+      <div class="leak-subtitle">Verbal / Frame Stability</div>
+      <div class="leak-body">
+        When a decision has been made and communicated, the authority move is to let it stand. Continuing to justify, soften, or rationalise after the fact signals that the decision is still open, that the right amount of pressure or dissatisfaction could reopen it. This is a frame leak. It invites challenge precisely by trying to pre-empt it.
+      </div>
+      <div class="leak-signal">
+        <div class="leak-signal-label">The signal others receive</div>
+        <div class="leak-signal-text">"He needs me to agree with him. The decision is not as settled as he wants it to appear."</div>
+      </div>
+      <div class="leak-cost">
+        <span>What it costs you:</span> Decisional authority. Respect from direct reports and peers. The room's confidence that decisions made by you will hold under pressure.
+      </div>
+    </div>
+  </div>
+
+  <div class="leak-entry">
+    <div class="leak-number">06</div>
+    <div class="leak-content">
+      <div class="leak-title">Reactive Eye Contact</div>
+      <div class="leak-subtitle">Physical / Dominance Signal</div>
+      <div class="leak-body">
+        Most men have been told to maintain eye contact, and most comply until the moment it becomes uncomfortable. The break almost always goes in the same direction: down and away, the submissive break. Reactive eye contact that holds when comfortable and retreats under social pressure is not neutral. It is a signal of conditional confidence, which is read as a ceiling on authority.
+      </div>
+      <div class="leak-signal">
+        <div class="leak-signal-label">The signal others receive</div>
+        <div class="leak-signal-text">"His confidence is conditional. Apply pressure and it moves."</div>
+      </div>
+      <div class="leak-cost">
+        <span>What it costs you:</span> The ability to hold your ground in confrontational moments. Perceived certainty under challenge. The quiet authority of a man who does not need to look away.
+      </div>
+    </div>
+  </div>
+
+  <div class="leak-entry">
+    <div class="leak-number">07</div>
+    <div class="leak-content">
+      <div class="leak-title">Laughing at the Wrong Moment</div>
+      <div class="leak-subtitle">Social / Frame Compliance</div>
+      <div class="leak-body">
+        Nervous laughter, appeasing smiles, and reflexive amusement at things that are not genuinely funny are among the most corrosive authority leaks in social and professional settings. They are frame compliance, the body's attempt to reduce tension by signalling submission. The higher the stakes of the interaction, the more damaging this leak becomes, because it occurs precisely when authority most needs to hold.
+      </div>
+      <div class="leak-signal">
+        <div class="leak-signal-label">The signal others receive</div>
+        <div class="leak-signal-text">"He is managing the room's comfort rather than owning it. His reactions are for them, not from him."</div>
+      </div>
+      <div class="leak-cost">
+        <span>What it costs you:</span> Presence in high-stakes moments. The distinction between a man who owns a room and a man who is trying to survive it.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-eyebrow">The next step</div>
+    <div class="cta-heading">Your signals are<br><em>specific to you.</em></div>
+    <div class="cta-body">
+      Most men reading this will recognise two or three of these leaks with certainty. The more costly ones are the blind spots. Those are the signals you are producing right now that you cannot perceive in yourself. That is precisely what the Authority Audit is for.
+    </div>
+    <div class="cta-price-block">
+      <div class="cta-price">£49</div>
+      <div class="cta-price-label">Authority Audit: 20 minutes, diagnostic and correction</div>
+    </div>
+    <a href="https://calendly.com/kilbeymichael/diagnostic-review" class="cta-button">Book Your Audit</a>
+    <div class="cta-url">highstatusframework.com</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-brand">The Executive Presence Lab</div>
+  <div class="footer-copy">Private issue: not for redistribution</div>
+</div>
+
+</body>
+</html>
