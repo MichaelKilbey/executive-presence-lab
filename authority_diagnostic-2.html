@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Authority Diagnostic — The Executive Presence Lab</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0D0D0D;
+    color: #E8E4DC;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  /* COVER */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 80px 60px 60px;
+    border-bottom: 1px solid #2A2A2A;
+  }
+
+  .cover-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .brand-mark {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #666;
+  }
+
+  .doc-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #444;
+    border: 1px solid #2A2A2A;
+    padding: 6px 14px;
+  }
+
+  .cover-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 0 80px;
+  }
+
+  .cover-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #B8A98A;
+    margin-bottom: 32px;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 68px;
+    line-height: 1.05;
+    color: #F0EAE0;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: #B8A98A;
+  }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: #B8A98A;
+    margin: 40px 0;
+  }
+
+  .cover-sub {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    color: #666;
+    max-width: 440px;
+    line-height: 1.9;
+  }
+
+  .cover-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cover-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 18px;
+    color: #B8A98A;
+    max-width: 360px;
+    line-height: 1.5;
+  }
+
+  .scoring-box {
+    border: 1px solid #2A2A2A;
+    padding: 20px 28px;
+    text-align: right;
+  }
+
+  .scoring-box-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #444;
+    margin-bottom: 8px;
+  }
+
+  .scoring-box-scale {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 15px;
+    color: #666;
+    line-height: 1.7;
+  }
+
+  /* INTRO */
+  .intro-section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 72px 60px;
+    border-bottom: 1px solid #1E1E1E;
+  }
+
+  .section-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #444;
+    margin-bottom: 28px;
+  }
+
+  .intro-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 1.7;
+    color: #C8C0B0;
+    margin-bottom: 32px;
+  }
+
+  .intro-text strong {
+    font-weight: 500;
+    color: #E8E4DC;
+  }
+
+  .intro-body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    color: #888;
+    line-height: 1.95;
+    max-width: 540px;
+  }
+
+  /* PILLAR SECTIONS */
+  .pillar-section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 60px;
+    border-bottom: 1px solid #1A1A1A;
+  }
+
+  .pillar-header {
+    padding: 56px 0 40px;
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    border-bottom: 1px solid #1E1E1E;
+    margin-bottom: 0;
+  }
+
+  .pillar-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 80px;
+    line-height: 1;
+    color: #1E1E1E;
+    flex-shrink: 0;
+    padding-top: 4px;
+  }
+
+  .pillar-header-content {}
+
+  .pillar-tag {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #B8A98A;
+    margin-bottom: 10px;
+  }
+
+  .pillar-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1.1;
+    color: #F0EAE0;
+    margin-bottom: 12px;
+  }
+
+  .pillar-desc {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.85;
+    max-width: 460px;
+  }
+
+  /* QUESTIONS */
+  .questions-block {
+    padding: 32px 0 52px;
+  }
+
+  .question-row {
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    gap: 0 20px;
+    align-items: start;
+    padding: 22px 0;
+    border-bottom: 1px solid #141414;
+  }
+
+  .question-row:last-child {
+    border-bottom: none;
+  }
+
+  .q-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: #333;
+    padding-top: 2px;
+    text-align: right;
+  }
+
+  .q-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    color: #C8C0B0;
+    line-height: 1.8;
+    padding-top: 2px;
+  }
+
+  .q-score {
+    flex-shrink: 0;
+    padding-top: 3px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .score-num {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    color: #333;
+    width: 28px;
+    text-align: center;
+    flex-shrink: 0;
+    line-height: 1;
+    padding: 6px 0;
+    border-bottom: 1px solid #2A2A2A;
+  }
+
+  .score-num.gold {
+    color: #B8A98A;
+    border-bottom-color: #B8A98A;
+  }
+
+  /* SCORING SECTION */
+  .scoring-section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 72px 60px 80px;
+  }
+
+  .scoring-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 40px;
+    margin-bottom: 56px;
+  }
+
+  .score-band {
+    background: #111;
+    padding: 28px 32px;
+  }
+
+  .score-band-range {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 32px;
+    color: #B8A98A;
+    margin-bottom: 8px;
+  }
+
+  .score-band-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #E8E4DC;
+    margin-bottom: 10px;
+  }
+
+  .score-band-desc {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    color: #666;
+    line-height: 1.8;
+  }
+
+  /* CTA */
+  .cta-section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 60px 80px;
+  }
+
+  .cta-inner {
+    border: 1px solid #2A2A2A;
+    padding: 60px;
+    text-align: center;
+    position: relative;
+  }
+
+  .cta-inner::before {
+    content: '';
+    position: absolute;
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    border: 1px solid #1A1A1A;
+    pointer-events: none;
+  }
+
+  .cta-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #444;
+    margin-bottom: 28px;
+  }
+
+  .cta-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 40px;
+    line-height: 1.2;
+    color: #F0EAE0;
+    margin-bottom: 20px;
+  }
+
+  .cta-heading em {
+    font-style: italic;
+    color: #B8A98A;
+  }
+
+  .cta-body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.95;
+    max-width: 420px;
+    margin: 0 auto 36px;
+  }
+
+  .cta-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 48px;
+    color: #F0EAE0;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .cta-price-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    color: #555;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 32px;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background: #B8A98A;
+    color: #0D0D0D;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 16px 48px;
+    text-decoration: none;
+  }
+
+  .cta-url {
+    margin-top: 20px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    color: #333;
+    letter-spacing: 0.1em;
+  }
+
+  .footer {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 28px 60px;
+    border-top: 1px solid #1A1A1A;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-brand {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #333;
+  }
+
+  .footer-copy {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    color: #2A2A2A;
+  }
+
+  @media (max-width: 640px) {
+    .cover { padding: 44px 24px 36px; min-height: auto; }
+    .intro-section { padding: 48px 24px; }
+    .pillar-section { padding: 0 24px; }
+    .scoring-section { padding: 48px 24px 56px; }
+    .cta-section { padding: 0 24px 56px; }
+    .footer { padding: 24px 24px; }
+    h1 { font-size: 38px; line-height: 1.1; }
+    .cover-sub { font-size: 13px; }
+    .cover-tagline { font-size: 15px; }
+    .pillar-number { font-size: 52px; }
+    .pillar-title { font-size: 26px; }
+    .pillar-desc { font-size: 13px; }
+    .pillar-header { flex-direction: column; gap: 10px; padding: 40px 0 28px; }
+    .scoring-grid { grid-template-columns: 1fr; }
+    .cover-bottom { flex-direction: column; gap: 24px; align-items: flex-start; }
+    .cta-inner { padding: 36px 20px; }
+    .cta-heading { font-size: 28px; }
+    .cta-price { font-size: 38px; }
+    .intro-text { font-size: 19px; }
+    .intro-body { font-size: 13px; }
+    .question-row { grid-template-columns: 24px 1fr auto; gap: 0 14px; padding: 18px 0; }
+    .q-num { font-size: 15px; }
+    .q-text { font-size: 13px; line-height: 1.75; }
+    .score-num { font-size: 14px; width: 22px; }
+    .score-band { padding: 22px 24px; }
+    .score-band-range { font-size: 26px; }
+    .score-band-desc { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="brand-mark">The Executive Presence Lab</div>
+    <div class="doc-label">Self Assessment</div>
+  </div>
+
+  <div class="cover-main">
+    <div class="cover-eyebrow">Authority Diagnostic — Private Issue</div>
+    <h1>The <em>21 Point</em><br>Authority<br>Diagnostic</h1>
+    <div class="cover-rule"></div>
+    <div class="cover-sub">
+      Score yourself honestly across the four pillars of total authority.
+      Most men overestimate two and are blind to the other two.
+      The score is not the point. The pattern is.
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-tagline">"Competence without the signals to match it<br>is authority that never lands."</div>
+    <div class="scoring-box">
+      <div class="scoring-box-label">Scoring</div>
+      <div class="scoring-box-scale">
+        1 — Never<br>
+        2 — Rarely<br>
+        3 — Sometimes<br>
+        4 — Usually<br>
+        5 — Always
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro-section">
+  <div class="section-eyebrow">Before you begin</div>
+  <div class="intro-text">
+    Answer as you <strong>are</strong>, not as you intend to be.<br>
+    The gap between those two things is precisely what this diagnostic is designed to find.
+  </div>
+  <div class="intro-body">
+    Score each statement from 1 to 5 using the scale on the cover. Total your score for each pillar separately, then combine for your overall reading. A low score on any single pillar reveals where your authority is leaking most — regardless of how well the other three are performing.
+  </div>
+</div>
+
+<!-- PILLAR 1 -->
+<div class="pillar-section">
+  <div class="pillar-header">
+    <div class="pillar-number">I</div>
+    <div class="pillar-header-content">
+      <div class="pillar-tag">Pillar One</div>
+      <div class="pillar-title">Visual Armour</div>
+      <div class="pillar-desc">Tailoring, silhouette, and the precision of what you put on your body. The first thirty seconds of any room are decided here before you have spoken a word.</div>
+    </div>
+  </div>
+
+  <div class="questions-block">
+    <div class="question-row">
+      <div class="q-num">1</div>
+      <div class="q-text">My clothing fits my frame with precision. Nothing pulls, bunches, or sits loose where it should not.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="q-num">2</div>
+      <div class="q-text">I dress with deliberate intent for every professional context, not out of habit or convenience.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="q-num">3</div>
+      <div class="q-text">My silhouette reads as clean and considered from across a room, not merely presentable up close.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="q-num">4</div>
+      <div class="q-text">My grooming and physical conditioning reinforce rather than undermine the authority of how I dress.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="q-num">5</div>
+      <div class="q-text">When I enter a room, my visual presentation commands immediate attention before I have said anything.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PILLAR 2 -->
+<div class="pillar-section">
+  <div class="pillar-header">
+    <div class="pillar-number">II</div>
+    <div class="pillar-header-content">
+      <div class="pillar-tag">Pillar Two</div>
+      <div class="pillar-title">Vocal Authority</div>
+      <div class="pillar-desc">Tonality, pace, weight and resonance. The voice is the most immediate signal of internal state. It cannot lie for long.</div>
+    </div>
+  </div>
+
+  <div class="questions-block">
+    <div class="question-row">
+      <div class="q-num">6</div>
+      <div class="q-text">My statements land as declarations. My voice does not rise at the end of sentences as though seeking permission.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="q-num">7</div>
+      <div class="q-text">My pace is unhurried. I do not accelerate when challenged, nervous, or under pressure to fill space.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="q-num">8</div>
+      <div class="q-text">My voice carries natural resonance and projection. I do not restrict my throat when tension enters the room.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="q-num">9</div>
+      <div class="q-text">I use silence as a tool. I am comfortable allowing a quiet room to remain quiet without feeling compelled to fill it.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="q-num">10</div>
+      <div class="q-text">My vocabulary is precise and economical. I do not dilute my points with qualifiers, fillers or unnecessary preamble.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PILLAR 3 -->
+<div class="pillar-section">
+  <div class="pillar-header">
+    <div class="pillar-number">III</div>
+    <div class="pillar-header-content">
+      <div class="pillar-tag">Pillar Three</div>
+      <div class="pillar-title">Physical Stillness</div>
+      <div class="pillar-desc">Posture, spatial ownership and the quality of physical presence in a room. Movement that is purposeful reads as authority. Movement that is restless reads as anxiety.</div>
+    </div>
+  </div>
+
+  <div class="questions-block">
+    <div class="question-row">
+      <div class="q-num">11</div>
+      <div class="q-text">My posture is consistent across contexts. I do not collapse, fold inward, or reduce my physical presence under social pressure.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="q-num">12</div>
+      <div class="q-text">I occupy my physical space with ownership. My feet are grounded, my weight is settled, and my lower body signals presence not exit.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="q-num">13</div>
+      <div class="q-text">My gestures are deliberate and controlled. I do not fidget, handle objects unnecessarily, or use repetitive hand movements when speaking.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="q-num">14</div>
+      <div class="q-text">When I move through a room I move with purpose. I do not drift, hover at thresholds, or wait for permission to occupy space.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="q-num">15</div>
+      <div class="q-text">My physical presence commands the room's attention without requiring volume or dramatic action to do so.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PILLAR 4 -->
+<div class="pillar-section">
+  <div class="pillar-header">
+    <div class="pillar-number">IV</div>
+    <div class="pillar-header-content">
+      <div class="pillar-tag">Pillar Four</div>
+      <div class="pillar-title">Behavioural Composure</div>
+      <div class="pillar-desc">Frame control, emotional regulation and the signals that reveal how a man holds himself under pressure. This is where authority is either confirmed or surrendered.</div>
+    </div>
+  </div>
+
+  <div class="questions-block">
+    <div class="question-row">
+      <div class="q-num">16</div>
+      <div class="q-text">When my position is challenged I hold my ground without becoming defensive, aggressive or visibly destabilised.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="q-num">17</div>
+      <div class="q-text">Once I have made a decision I allow it to stand. I do not continue justifying, softening or rationalising after the fact.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="q-num">18</div>
+      <div class="q-text">My eye contact is steady and consistent. It does not retreat under social pressure or break downward when challenged.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="q-num">19</div>
+      <div class="q-text">My laughter and expressions of amusement are genuine. I do not smile or laugh to manage social tension or seek approval.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="q-num">20</div>
+      <div class="q-text">I set and hold boundaries without apology. My no is a complete sentence and my yes carries genuine weight.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+    <div class="question-row">
+      <div class="q-num">21</div>
+      <div class="q-text">The version of me that appears under pressure is the same man who walked into the room. My composure does not depend on conditions being comfortable.</div>
+      <div class="q-score">
+        <span class="score-num">1</span>
+        <span class="score-num">2</span>
+        <span class="score-num">3</span>
+        <span class="score-num">4</span>
+        <span class="score-num gold">5</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCORING -->
+<div class="scoring-section">
+  <div class="section-eyebrow">Reading your score</div>
+  <div class="intro-text">
+    Total the scores across all four pillars.<br>
+    Maximum score: <strong>105</strong>
+  </div>
+
+  <div class="scoring-grid">
+    <div class="score-band">
+      <div class="score-band-range">84 — 105</div>
+      <div class="score-band-label">Calibrated Authority</div>
+      <div class="score-band-desc">Your signals are largely aligned with your capability. The work is in the precision of the remaining gaps, which are costing you more than you realise at this level.</div>
+    </div>
+    <div class="score-band">
+      <div class="score-band-range">63 — 83</div>
+      <div class="score-band-label">Uneven Authority</div>
+      <div class="score-band-desc">You have strong pillars and weak ones. The room reads the weak ones regardless of how well the others perform. Your lowest pillar score is your most important number.</div>
+    </div>
+    <div class="score-band">
+      <div class="score-band-range">42 — 62</div>
+      <div class="score-band-label">Leaking Authority</div>
+      <div class="score-band-desc">Your signals are working against your competence in most rooms. The gap between how capable you are and how you are being read is costing you significantly.</div>
+    </div>
+    <div class="score-band">
+      <div class="score-band-range">21 — 41</div>
+      <div class="score-band-label">Absent Authority</div>
+      <div class="score-band-desc">The room is not reading you as the most capable person in it regardless of whether you are. Every pillar requires deliberate reconstruction. This is where the work begins.</div>
+    </div>
+  </div>
+
+  <div class="intro-body">
+    Note the pillar where your score is lowest. That is not a weakness of character. It is a signal failure. Specific, identifiable, and correctable with precision. The overall score tells you where you stand. The pillar breakdown tells you exactly where to begin.
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-eyebrow">The next step</div>
+    <div class="cta-heading">Your score reveals<br><em>the pattern.</em><br>The audit reveals<br><em>the cause.</em></div>
+    <div class="cta-body">
+      A self-assessment can show you where the gaps are. It cannot show you what you look like producing them. That requires an external eye — one trained to read exactly what the room is reading when you walk in.
+    </div>
+    <span class="cta-price">£49</span>
+    <span class="cta-price-label">Authority Audit — 20 minutes with Michael, diagnostic and correction</span>
+    <a href="https://calendly.com/kilbeymichael/diagnostic-review" class="cta-button">Book Your Audit</a>
+    <div class="cta-url">highstatusframework.com</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-brand">The Executive Presence Lab</div>
+  <div class="footer-copy">Private issue — not for redistribution</div>
+</div>
+
+</body>
+</html>
